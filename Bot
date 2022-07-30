@@ -1,0 +1,398 @@
+# # 'https://t.me/BetaTestRayForTesting_bot?start=hello'
+#
+# import os
+# from dotenv import load_dotenv
+# from aiogram import Bot, Dispatcher, executor, types
+# import logging
+# from aiogram.types import ReplyKeyboardMarkup, KeyboardButton, InlineKeyboardMarkup, InlineKeyboardButton
+# from aiogram.utils.executor import start_webhook
+#
+# load_dotenv()
+#
+# TOKEN = os.getenv('TOKEN')
+# HEROKU_APP_NAME = os.getenv('HEROKU_APP_NAME')
+#
+# WEBHOOK_HOST = f'https://{HEROKU_APP_NAME}.herokuapp.com'
+# WEBHOOK_PATH = f'/webhook/{TOKEN}'
+# WEBHOOK_URL = f'{WEBHOOK_HOST}{WEBHOOK_PATH}'
+#
+# WEBAPP_HOST = '0.0.0.0'
+# WEBAPP_PORT = os.getenv('PORT', default=8000)
+#
+# logging.basicConfig(level=logging.INFO)
+#
+# bot = Bot(token=TOKEN)
+# dp = Dispatcher(bot)
+#
+# button1 = KeyboardButton('Категории')
+# button2 = KeyboardButton('Помощь')
+# button3 = KeyboardButton('Отзывы')
+# start_kb = ReplyKeyboardMarkup(resize_keyboard=True, one_time_keyboard=True)
+# start_kb.row(button1, button2)
+# start_kb.row(button3)
+#
+# youtube_kb = InlineKeyboardButton('YouTube', callback_data='youtube_kb')
+# gamepass_kb = InlineKeyboardButton('Game Pass', callback_data='gamepass_kb')
+# playstation_kb = InlineKeyboardButton('PS+', callback_data='playstation_kb')
+# back_kb = InlineKeyboardButton('Назад', callback_data='back_kb')
+# inline_kb1 = InlineKeyboardMarkup().add(gamepass_kb, playstation_kb, youtube_kb)
+# inline_kb1.add(back_kb)
+#
+# button_back = KeyboardButton('Назад')
+# back_kb1 = ReplyKeyboardMarkup(resize_keyboard=True, one_time_keyboard=True).add(button_back)
+#
+# youtube_t1 = InlineKeyboardButton('YouTube Премиум на 1 месяц', callback_data='youtube_t1')
+# youtube_t2 = InlineKeyboardButton('YouTube Премиум на 6 месяцев', callback_data='youtube_t2')
+# youtube_back = InlineKeyboardButton('Назад', callback_data='youtube_back')
+# youtube_kb1 = InlineKeyboardMarkup()
+# youtube_kb1.add(youtube_t1)
+# youtube_kb1.add(youtube_t2)
+# youtube_kb1.add(youtube_back)
+#
+# gamepass_t1 = InlineKeyboardButton('Game Pass Премиум на 1 месяц', callback_data='gamepass_t1')
+# gamepass_t2 = InlineKeyboardButton('Game Pass Премиум на 6 месяцев', callback_data='gamepass_t2')
+# gamepass_back = InlineKeyboardButton('Назад', callback_data='gamepass_back')
+# gamepass_kb1 = InlineKeyboardMarkup()
+# gamepass_kb1.add(gamepass_t1)
+# gamepass_kb1.add(gamepass_t2)
+# gamepass_kb1.add(gamepass_back)
+#
+# playstation_t1 = InlineKeyboardButton('PS+ на 1 месяц', callback_data='playstation_t1')
+# playstation_t2 = InlineKeyboardButton('PS+ на 6 месяцев', callback_data='playstation_t2')
+# playstation_back = InlineKeyboardButton('Назад', callback_data='playstation_back')
+# playstation_kb1 = InlineKeyboardMarkup()
+# playstation_kb1.add(playstation_t1)
+# playstation_kb1.add(playstation_t2)
+# playstation_kb1.add(playstation_back)
+#
+# yes = InlineKeyboardButton('Да', callback_data='yes')
+# no = InlineKeyboardButton('Нет', callback_data='no')
+# pid = InlineKeyboardMarkup()
+# pid.add(yes, no)
+#
+# yes_game = InlineKeyboardButton('Да', callback_data='yes_game')
+# no_game = InlineKeyboardButton('Нет', callback_data='no_game')
+# pid_game = InlineKeyboardMarkup()
+# pid_game.add(yes_game, no_game)
+#
+# yes_play = InlineKeyboardButton('Да', callback_data='yes_play')
+# no_play = InlineKeyboardButton('Нет', callback_data='no_play')
+# pid_play = InlineKeyboardMarkup()
+# pid_play.add(yes_play, no_play)
+#
+# back_back2 = InlineKeyboardButton('Назад', callback_data='back_back2')
+# back_back23 = InlineKeyboardMarkup()
+# back_back23.add(back_back2)
+#
+# back_back = InlineKeyboardButton('Назад', callback_data='backing')
+# back_kb5 = InlineKeyboardMarkup()
+# back_kb5.add(back_back)
+#
+# back_backend = InlineKeyboardButton('Назад', callback_data='back_backend2')
+# back_23 = InlineKeyboardMarkup()
+# back_23.add(back_backend)
+#
+# @dp.callback_query_handler()
+# async def call_cmd(call: types.CallbackQuery):
+#     if call.data == 'youtube_kb':
+#         await call.message.delete()
+#         await call.message.answer(text='Какую подписку YouTube вы хотите?', reply_markup=youtube_kb1)
+#     elif call.data == 'gamepass_kb':
+#         await call.message.delete()
+#         await call.message.answer(text='Какую подписку Game Pass вы хотите?', reply_markup=gamepass_kb1)
+#     elif call.data == 'playstation_kb':
+#         await call.message.delete()
+#         await call.message.answer(text='Какую подписку PS+ вы хотите?', reply_markup=playstation_kb1)
+#     elif call.data == 'back_kb':
+#         await call.message.delete()
+#         await call.message.answer('Ты вернулся в главное меню', reply_markup=start_kb)
+#     elif call.data == 'youtube_t1':
+#         await call.message.delete()
+#         await call.message.answer(text='Вы точно хотите приобрести подписку YouTube на 1 месяц?', reply_markup=pid)
+#     elif call.data == 'youtube_t2':
+#         await call.message.delete()
+#         await call.message.answer(text='Вы точно хотите приобрести подписку YouTube на 6 месяцев?', reply_markup=pid)
+#     elif call.data == 'yes':
+#         await call.message.delete()
+#         await call.message.answer(text='Я вам не Джинн, чтобы исполнять ваши желания\nЛучше звоните @naebalovo', reply_markup=back_kb5)
+#     elif call.data == 'backing':
+#         await call.message.delete()
+#         await call.message.answer(text='Какую подписку YouTube вы хотите?', reply_markup=youtube_kb1)
+#     elif call.data == 'no':
+#         await call.message.delete()
+#         await call.message.answer(text='Какую подписку YouTube вы хотите?', reply_markup=youtube_kb1)
+#     elif call.data == 'youtube_back':
+#         await call.message.delete()
+#         await call.message.answer('Что из этого хотите приобрести?', reply_markup=inline_kb1)
+#     elif call.data == 'gamepass_back':
+#         await call.message.delete()
+#         await call.message.answer('Что из этого хотите приобрести?', reply_markup=inline_kb1)
+#     elif call.data == 'playstation_back':
+#         await call.message.delete()
+#         await call.message.answer('Что из этого хотите приобрести?', reply_markup=inline_kb1)
+#     elif call.data == 'gamepass_t1':
+#         await call.message.delete()
+#         await call.message.answer('Вы точно хотите приобрести подписку Game Pass на 1 месяц?', reply_markup=pid_game)
+#     elif call.data == 'gamepass_t2':
+#         await call.message.delete()
+#         await call.message.answer('Вы точно хотите приобрести подписку Game Pass на 6 месяцев?', reply_markup=pid_game)
+#     elif call.data == 'yes_game':
+#         await call.message.delete()
+#         await call.message.answer('Я вам не Джинн, чтобы исполнять ваши желания\nЛучше звоните @naebalovo', reply_markup=back_back23)
+#     elif call.data == 'back_back2':
+#         await call.message.delete()
+#         await call.message.answer('Какую подписку Game Pass вы хотите?', reply_markup=gamepass_kb1)
+#     elif call.data == 'no_game':
+#         await call.message.delete()
+#         await call.message.answer('Какую подписку Game Pass вы хотите?', reply_markup=gamepass_kb1)
+#     elif call.data == 'playstation_t1':
+#         await call.message.delete()
+#         await call.message.answer('Вы точно хотите приобрести подписку PS+ на 1 месяц?', reply_markup=pid_play)
+#     elif call.data == 'playstation_t2':
+#         await call.message.delete()
+#         await call.message.answer('Вы точно хотите приобрести подписку PS+ на 6 месяцев?', reply_markup=pid_play)
+#     elif call.data == 'yes_play':
+#         await call.message.delete()
+#         await call.message.answer('Я вам не Джинн, чтобы исполнять желания\nЛучше звоните @naebalovo', reply_markup=back_23)
+#     elif call.data == 'no_play':
+#         await call.message.delete()
+#         await call.message.answer('Какую подписку PS+ вы хотите?', reply_markup=playstation_kb1)
+#     elif call.data == 'back_backend2':
+#         await call.message.delete()
+#         await call.message.answer('Какую подписку PS+ вы хотите?', reply_markup=playstation_kb1)
+#
+# @dp.message_handler(text='Помощь')
+# async def get_help(message: types.Message):
+#     await message.answer('У вас произошла ошибка?\nСвяжитесь с @admin', reply_markup=back_kb1)
+#
+# @dp.message_handler(commands='start')
+# async def cmd_start(message: types.Message):
+#     await message.answer('Привет!\nВы зашли в наш магазин подписок\nЗайдите в категории', reply_markup=start_kb)
+#
+# @dp.message_handler(text='Категории')
+# async def cmd_category(message: types.Message):
+#     await message.answer('Что из этого хотите приобрести?', reply_markup=inline_kb1)
+#
+# @dp.message_handler(text='Отзывы')
+# async def get_otzivi(message: types.message):
+#     await message.answer('Отзывы в стадии разработки', reply_markup=back_kb1)
+#
+# @dp.message_handler(text='Назад')
+# async def back_cmd(message: types.Message):
+#     await message.answer('Ты вернулся в главное меню', reply_markup=start_kb)
+#
+# async def on_startup(dp):
+#     await bot.set_webhook((WEBHOOK_URL))
+#
+# async def on_shutdown(dp):
+#     logging.warning('Отключаем')
+#     await bot.delete_webhook()
+#     await dp.storage.close()
+#     await dp.storage.wait_closed()
+#     logging.warning('Пока')
+#
+# if __name__ == '__main__':
+#     start_webhook(
+#         dispatcher=dp,
+#         webhook_path=WEBHOOK_PATH,
+#         on_startup=on_startup,
+#         on_shutdown=on_shutdown,
+#         skip_updates=True,
+#         host=WEBAPP_HOST,
+#         port=WEBAPP_PORT
+#     )
+from random import randint
+from aiogram import Bot, Dispatcher, types, executor
+import logging
+from aiogram.types import ReplyKeyboardMarkup, KeyboardButton, BotCommandScopeChat
+from aiogram.types import BotCommand, BotCommandScopeDefault
+
+TOKEN = '5513034871:AAFdNqtMa989I5gJIWOl7gPOgxidZFmQ-w8'
+
+logging.basicConfig(level=logging.INFO)
+
+bot = Bot(token=TOKEN)
+dp = Dispatcher(bot)
+
+ANECDOTI = {
+    1: 'По дороге на машине едут мама с сыном. Вдруг из машины, которая едет впереди вылетает вибратор и попадает в '
+       'стекло\n-Мам, что это?\nНу что-что? Насекомое!\n- Ничего себе насекомое! И как оно с таким ху@м летает?',
+    2: 'Анекдот на 1 апреля:\n-Мам, папа в гостиной повесился\n-Что?\n-Шутка, он на кухне',
+    3: 'Мужик приходит домой, пьяный, все лицо в помаде, на одежде длинные рыжие волосы…\nЖена:\n— Ну и что ты на этот '
+       'раз придумаешь?!!\n— Ты не поверишь, с клоуном подрался…',
+    4: 'Судья обращается к залу присутствующих:\n- Тишина! Предупреждаю, что если кто-то еще раз скажет "долой '
+       'судью", тот отправится на улицу.\nЧерез некоторое время раздается голос: "Долой судью!"\nСудья:\n- Обвиняемый, '
+       'к вам это не относится.',
+    5: 'В самолете блюет пассажир. Все смеются.\nСтюардесса видит, что скоро потечет через край пакета и бежит за '
+       'вторым. Когда вернулась, обнаруживает, что все блюют а один смеется.\nОна спрашивает:\n- В чем дело?\n- Они '
+       'думали что у меня через край польется, а я взял и отхлебнул.',
+    6: 'Старушки беседуют у дома:\n- Слухай, а ты со своим дедом ночью "балуешься"?\n- Да ты что, старая, 80 лет уже, '
+       'какой там...\n- А мы вот "балуемся".\n- Как???\n- Ляжем рядышком, поднимем "это самое" кверху и глядим - в чью '
+       'сторону упадёт, тому завтра за хлебом идти.',
+    7: 'Иван Дурак и Царевна первую брачную ночь!\nИван Дурак не знает что делать, идет к своей маме, и спрашивает:\n'
+       '- Что делать в первую брачную ночь?\nОна отвечает:\n- У тебя на теле есть выпуклость а у неё есть дырка, '
+       'засунь свою выпуклость в её дырку, а дальше вам мать природа поможет!\nНа следующий день приходит Царевна к '
+       'матери Ивана Дурака и говорит:\n- У тебя что сын ПРИДУРОК?\n- Что он сделал?\n- Он мне нос в жопу '
+       'засунул....... и кричит "МАТЬ ПРИРОДА ПОМОГИ ЗАДЫХАЮСЬ!!!"',
+    8: 'Едут в купе три девушки. Одна говорит:\n- Я люблю заниматься сексом со спортсменами. Быстро прибежал, быстро '
+       'трахнул, быстро убежал.\nВторая:\n- А я - с военными. На счет раз пришел, на счет два трахнул, на счет три '
+       'ушел.\nТретья:\n- А я люблю трахаться с индейцами. Дети природы.Трахаются как звери.\nТут поезд тормознул. '
+       'Падает грузин с полки:\n- Разрешите представиться - мастер спорта, майор Чингачгук!',
+    9: 'Ехали компанией на дачу.Пацан взял брата 6 лет.А брат взял с собой водяной пистолет и всех обливал.Мы его '
+       'отобрали и он устроил истерику. Тормозит нас ГАИ.Ребенок орет.\nГаишник:\n— Почему плачешь?\nРебенок:\n'
+       '— У НИХ ПИСТОЛЕЕЕТ!!\nСледующие 5 мин все лежали на земле с руками за головой!\n— люблю детей',
+    10: 'Читаю дочке сказку: «Было у отца три сына: старший — умный был детина, средний сын — и так и сяк, '
+        'младший — вовсе был дурак…»\n— Мам, а у них отец болел что ли?\n— С чего ты взяла?\n— А что у него с каждым '
+        'разом все хуже и хуже получалось?',
+    11: 'Трое спецназовцев присланы к командиру дивизии для выполнения особо важного задания. Два огромных шкафа и '
+        'один маленький, скромненький...\nПредставляются:\n— Иванов! Мастер спорта по боксу, КМС по гиревому спорту!\n'
+        '— Петров! Мастер спорта по самбо, КМС по кикбоксингу!\n— Сидоров! Мастер спорта по шахматам... Командую этими '
+        'двумя долбо@бами!',
+    12: 'Гуляют мама с маленькой девочкой. Видят — кот "топчет" кошку и оба при этом дико орут.\nМама:\n— О, боже! '
+        'Бедная кошечка!\nДочь:\n— Да, не переживай, он ее "потр@хает" и отпустит!',
+    13: 'Мужик купил себе петуха. На следующий день петух трахнул всех кур, на следующий день всех гусынь, индюшек... '
+        'Мужик смотрит на это всё и думает:\n- Не бережёт себя петушок, помрёт...\nНа следующий день видит - петух '
+        'валяется в луже, вокруг него собираются голодные вороны. Мужик подходит и говорит:\n- Эх, ты! Надо было '
+        'беречь молодость, экономить силы!!!\nПетух отвечает:\n- Сука, ворон спугнёшь - тебя трахну!!!',
+    14: '— Милая, давай займемся cекcом?\n— Сын не спит.\n— Да нет,он спит.\n— Да нет-же, ну смотри: — сынок, принеси '
+        'пожалуйста водички.\n(Тишина)\n— Ну, давай.\nДикий cекc, бурный оргазм, оба откинулись в экстазе и вдруг '
+        'голос из темноты:\n— И долго я буду с кружкой воды тут стоять?',
+    15: 'Открыли Василь Иваныч и Петька магазин, в котором все есть, Петька на кассе. Заходит мужик:\n- дайте два '
+        'килограмма крокодильего хвоста.\nНу Петька порылся хоп-хоп нашел\nЗаходит этот же мужик:\n- дайте 20 шт '
+        'барсучьих яиц.\nНу Петька порылся хоп-хоп нашел. в 3-ий раз:\n- дайте 2 кг нихуя.\nПетька в непонятках идет к '
+        'Василю Иванычу, тот говорит, что сам обслужит.\nЗаходит, значит В. И и выключает свет дальше диалог\nВ. И: '
+        'видишь чё-нибудь?\nМужик: нихуя\nВ. И вот бери 2 кг и пиздуй отсюда. . . . )))',
+    16: 'Как бабушка называет пассивных геев?\n\nЛенивые голубцы.',
+    17: 'Какой самый сильный наркотик?\n\nОдеяло, потому что накрывает всех.',
+    18: '— Дорогая! Если я умру, ты не горюй, сразу замуж выходи. Будь счастлива. Единственная просьба — пусть сыновей '
+        'правильно воспитает!\n— Как ты заебал! Нормальный суп!!! Не хочешь, не ешь...',
+    19: 'Что говорит свинья на мясокомбинате?\n\nМеня колбасит.',
+    20: '— Ваш дизайн говно.\n— Это дизайн говна.\n— Тогда недурно.',
+    21: 'Подходит мужик к песочнице, где играет маленькая девочка:\n— Девочка, хочешь конфетку?\n—Дяденька вы '
+        'педофил?\n— Нет.\n— Ну а смысл тогда?',
+    22: 'Я: мам мне нанесли 4 ножевых ранений, я умираю!\nМама: а почему не пять?',
+    23: '-То есть ты надела платье с декольте и тебя повысили?!\n-Пятерочка выручает!',
+    24: 'Слушай, я кроссворд разгадываю - "человек, который обязан отдавать все деньги другому человеку, получая '
+        'взамен еду". Это кто?\n- Раб.\n- Я тоже думаю, что раб, а жена написала: "муж".',
+    25: 'Будущее. 2077 год.\nЗаходит киберпанк в бар, а от него кибервоняет.',
+    26: '-- Тук-Тук.\n-- Кто там?\n-- Тук-тук.\n-- Кто там?\n-- Тук-Тук.\n«Идиот», подумал Штирлиц.\n«Е6лан», '
+        'подумал Тук-Тук.',
+    27: '— Почему одни мужики носят сережку в левом ухе, а другие в правом?\n— Объясняю. В левом ухе носят пидоры, а '
+        'в правом педерасты.\n— Подожди! А чем отличаются пидоры от педерастов?\n— Объясняю. Пидоры носят сережку в '
+        'левом ухе, а педерасты в правом.',
+    28: 'Как называют черную женщину, которая сделала 7 абортов?\n\nБорец с преступностью',
+    29: 'Заходят как-то 2 человека в бар.\n\nРусский, француз и негр.',
+    30: 'Что видит патологоанатом, вскрывая полицейского?\n\nПравоохранительные органы.',
+    31: 'Вбежал Штирлиц в бункер и закричал:\n— ПОРУБЛЮ ТВАРИ!\nТвари скинулись по рублю.',
+    32: 'В дверь постучали 1024 раза\n— Гигабайт. Подумал Штирлиц.',
+    33: 'Идет суд. Судья:\n— Свидетель Георгадзе!\nТишина...\n— Свидетель Георгадзе!\nВстает грузин.\nСудья:\n— Ну '
+        'расскажите как все было, что вы видели?\n— Ничего я нэ видэл...\n— Вы свидетель Георгадзе?\n— Нэт\n— А почему '
+        'встали?\n— Сэйчас жопу почешу и сяду',
+    34: 'Сколько длится дружба в Африке?\n\nДень.\n\nНочью все друзья исчезают.',
+    35: '— Пап-пап, а кто сильнее: Бэтмен или Супермен?\n— Пошли проверим, кто больше моих ударов выдержит!\n\nДело '
+        'было на детском утреннике.',
+    36: 'Мама пишет сыну смску: «Ну как тебе завтрак?»\nСын, недолго думая, отвечает: «Збс»\n«А что это означает? »\n'
+        '«Завтрак был супер. Короче, спасибо, мам. »\n«Пнх»\n«Что?»\n«Пошел на хуй»',
+    37: 'В дверь постучали 3,14 раза.\n"Пи" — подумал Штирлиц\n"зда" — сказал Мюллер входя в комнату\n"вам" — сказал '
+        'Сталин выходя из шкафа',
+    38: 'Идут Адам и Ева по райскому саду, прогуливаются, и тут выходят к дереву со змеем-искусителем.\nЗмей '
+        'оглядывает их с головы до ног и говорит Адаму:\n- У тебя хуй видно, в курсе?',
+    39: '— А вы еврей по папе или по маме?\n— По ситуации',
+    40: 'Умерли грузин, хохол и еврей. И, попав на приём к богу, все втроём взмолились:\n— Отпусти нас обратно на землю'
+        ', мало мы пожили ещё, молодые совсем.\n— Хорошо,—ответил им бог,—но только до первого соблазна.\nИ вот '
+        'очутились они на земле, в каком-то доме. Видят: стол накрыт, жратвы на нем видимо-невидимо. Только сел хохол '
+        'за стол — тут же пропал.\nА грузин и еврей вышли из дома и пошли дальше. Вдруг видят на дороге 100 долларов '
+        'лежат. Еврей наклонился за деньгами и пропали оба.',
+    41: 'Приходит к психоаналитику бесконечное число пациентов.\nПервый пациент: "Я чувствую, что у меня было только '
+        'половина нормального детства"\nВторой: "Я разобрался в себе и понял, что у меня было детство нормальным лишь '
+        'на 25%"\nТретий: "Я думаю, лишь у одного из восьми окружающих детство было настолько же несчастным, как и '
+        'у меня"\n\nА психоаналитик сидит и внимательно их всех слушает, потому что он гуманитарий и сумму ряда '
+        'посчитать не может.',
+    42: 'два наркомана общаются по рации:\n-принял\n-принял\n-принял\n-принял\n-принял\n-принял\n-принял\n-принял\n-'
+        'принял',
+    43: 'Программист идет в магазин.\nЖена просит купить его булку, а если будут яйца, то десяток.\nПриходит в магазин'
+        ', говорит :\n- У вас яйца есть?\n- Есть.\n- Десять булок, пожалуйста.',
+    44: 'Встретились два еврея и один другого спросил.\n- Слушай, Авраам, займи два рубля.\n- У меня только один.\n- '
+        'Давай пока один, второй должен будешь.',
+    45: 'Программиста спрашивают:\n— Как вам удалось так быстро выучить английский язык?\n— Да, ерунда какая. Они там '
+        'почти все слова из C++ взяли',
+    46: 'Как называют православного программиста.\n\n\n\n\n\nКодило.',
+    47: '- Что могут гуглить одновременно и зоофил, и программист?\n- "Змейка на питоне"',
+    48: '-У тебя родители случаем не программисты?\n-Нет\n-Так вот почему у тебя лицо так хуево скомпилировалось',
+    49: 'Можно ли построить коммунизм на Кавказе?\n\nНет. В программе партии сказано, что коммунизм не за горами',
+    50: '- Какие планы на сегодня?\n- Схожу с приятелем в магазин оптики, купим наконец-то очки\n- А потом?\n- А потом '
+        'посмотрим',
+    51: 'Что общего между негром и велосипедом?\n\nОба работают только на цепи',
+    52: 'Я кончил ей на брекеты\n\nТеперь мои дети за решеткой',
+    53: 'Видеоблогера-зоофила возбуждают лайки',
+    54: 'Сидят две мухи. Говно жрут. Тут одна и говорит:\n-Бля вот это я наелась, пойду посру\nВторая возмущённо:\n-'
+        'Сука, весь аппетит испортила',
+    55: '-А может мы забудем все и сбежим?\n\n\n-Подсудимый сядьте!',
+    56: 'я вчера открываю банку пива и оно такое: "тссссс", а я такой: "да не очкуй, дома никого нет"',
+    57: 'Если бога нет, то в кого тогда не верят атеисты?',
+    58: 'Почему девушке нельзя кончать на шею?\n\nДети не должны сидеть на шее у матери',
+    59: 'Что общего у шуток и людей?\n\nБольшинству не нравятся чёрные.',
+    60: 'Как называются 1024 негра?\n\n1 ниггабайт',
+    61: 'Почему на северном полюсе нет рэперов?\n\nПотому что никто не может читать под такой лютый минус.',
+    62: 'Мой сын такой неблагодарный, купил ему батут на день рождения, а он только и делает, что сидит в своём '
+        'инвалидном кресле и плачет',
+    63: 'Как понять, что девушка любит золотой дождь?\n\nУ неё на лице написано.'
+}
+
+bt1 = KeyboardButton('Анекдоты')
+bt2 = KeyboardButton('Помощь')
+start_menu = ReplyKeyboardMarkup(resize_keyboard=True)
+start_menu.add(bt1, bt2)
+
+@dp.message_handler(commands=['start', 'hello'])
+async def start_cmd(message: types.Message):
+    await message.answer('Привет!\nЭто бот анекдотов\nОн выдаёт рандомные анекдоты. Их более 60\nПри желании добавить '
+                         'анекдоты можете ввести команду /help', reply_markup=start_menu)
+    await set_all_default_commands(bot)
+    await set_starting_commands(message.bot, message.from_user.id)
+
+async def set_default_commands(bot: Bot):
+    return await bot.set_my_commands(
+        commands=[
+            BotCommand('command_default_1', 'Стандартная команда 1'),
+            BotCommand('command_default_2', 'Стандартная команда 2'),
+            BotCommand('command_default_3', 'Стандартная команда 3'),
+        ],
+        scope=BotCommandScopeDefault(),
+    )
+
+async def set_starting_commands(bot: Bot, chat_id: int):
+    STARTING_COMMANDS= {
+        'ru': [
+            BotCommand('start', 'Начать'),
+            BotCommand('help', 'Помощь'),
+            BotCommand('anecdote', 'Анекдоты')]
+    }
+    for language_code, commands in STARTING_COMMANDS.items():
+        await bot.set_my_commands(
+            commands=commands,
+            scope=BotCommandScopeChat(chat_id),
+            language_code=language_code
+        )
+
+async def set_all_default_commands(bot: Bot):
+    await set_default_commands(bot)
+
+@dp.message_handler(text='Анекдоты')
+async def anekdots(message: types.Message):
+    await message.answer(f'{ANECDOTI.get(randint(1, 63))}')
+
+@dp.message_handler(commands='anecdote')
+async def anekdots(message: types.Message):
+    await message.answer(f'{ANECDOTI.get(randint(1, 63))}\n/anecdote')
+
+@dp.message_handler(text='Помощь')
+async def helping(message: types.Message):
+    await message.answer('При желании добавить анекдоты обращайтесь к @Gleb_Ivanov165')
+
+@dp.message_handler(commands='help')
+async def helping(message: types.Message):
+    await message.answer('При желании добавить анекдоты обращайтесь к @Gleb_Ivanov165')
+
+if __name__ == '__main__':
+    executor.start_polling(dp, skip_updates=True)
